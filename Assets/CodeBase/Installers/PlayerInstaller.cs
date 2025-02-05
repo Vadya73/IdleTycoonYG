@@ -1,6 +1,7 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using CodeBase.Behaviours;
+using CodeBase.Behaviours.Observers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

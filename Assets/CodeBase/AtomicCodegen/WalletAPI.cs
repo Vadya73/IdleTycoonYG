@@ -8,17 +8,56 @@ using System.Runtime.CompilerServices;
 using Atomic.Elements;
 using UnityEngine.InputSystem;
 using CodeBase.Inventory;
+using CodeBase;
 
 namespace Atomic.Entities
 {
     public static class WalletAPI
     {
         ///Keys
-        public const int Worth = 19; // ReactiveVariable<int>
-        public const int ReceiveItem = 20; // Item
+        public const int Coins = 19; // ReactiveVariable<int>
+        public const int Diamonds = 20; // ReactiveVariable<int>
+        public const int Worth = 22; // ReactiveVariable<int>
+        public const int WalletType = 23; // WalletType
 
 
         ///Extensions
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVariable<int> GetCoins(this IEntity obj) => obj.GetValue<ReactiveVariable<int>>(Coins);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetCoins(this IEntity obj, out ReactiveVariable<int> value) => obj.TryGetValue(Coins, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddCoins(this IEntity obj, ReactiveVariable<int> value) => obj.AddValue(Coins, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasCoins(this IEntity obj) => obj.HasValue(Coins);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelCoins(this IEntity obj) => obj.DelValue(Coins);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetCoins(this IEntity obj, ReactiveVariable<int> value) => obj.SetValue(Coins, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVariable<int> GetDiamonds(this IEntity obj) => obj.GetValue<ReactiveVariable<int>>(Diamonds);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetDiamonds(this IEntity obj, out ReactiveVariable<int> value) => obj.TryGetValue(Diamonds, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddDiamonds(this IEntity obj, ReactiveVariable<int> value) => obj.AddValue(Diamonds, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasDiamonds(this IEntity obj) => obj.HasValue(Diamonds);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelDiamonds(this IEntity obj) => obj.DelValue(Diamonds);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetDiamonds(this IEntity obj, ReactiveVariable<int> value) => obj.SetValue(Diamonds, value);
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReactiveVariable<int> GetWorth(this IEntity obj) => obj.GetValue<ReactiveVariable<int>>(Worth);
 
@@ -38,21 +77,21 @@ namespace Atomic.Entities
         public static void SetWorth(this IEntity obj, ReactiveVariable<int> value) => obj.SetValue(Worth, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Item GetReceiveItem(this IEntity obj) => obj.GetValue<Item>(ReceiveItem);
+        public static WalletType GetWalletType(this IEntity obj) => obj.GetValue<WalletType>(WalletType);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetReceiveItem(this IEntity obj, out Item value) => obj.TryGetValue(ReceiveItem, out value);
+        public static bool TryGetWalletType(this IEntity obj, out WalletType value) => obj.TryGetValue(WalletType, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddReceiveItem(this IEntity obj, Item value) => obj.AddValue(ReceiveItem, value);
+        public static bool AddWalletType(this IEntity obj, WalletType value) => obj.AddValue(WalletType, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasReceiveItem(this IEntity obj) => obj.HasValue(ReceiveItem);
+        public static bool HasWalletType(this IEntity obj) => obj.HasValue(WalletType);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool DelReceiveItem(this IEntity obj) => obj.DelValue(ReceiveItem);
+        public static bool DelWalletType(this IEntity obj) => obj.DelValue(WalletType);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetReceiveItem(this IEntity obj, Item value) => obj.SetValue(ReceiveItem, value);
+        public static void SetWalletType(this IEntity obj, WalletType value) => obj.SetValue(WalletType, value);
     }
 }

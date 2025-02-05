@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using Atomic.Elements;
 using UnityEngine.InputSystem;
 using CodeBase.Inventory;
+using CodeBase;
 
 namespace Atomic.Entities
 {

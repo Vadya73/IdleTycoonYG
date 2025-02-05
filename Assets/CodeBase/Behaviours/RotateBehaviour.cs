@@ -27,7 +27,6 @@ namespace CodeBase.Behaviours
 
         public void SetDirectionValue(Vector2 direction)
         {
-            Debug.Log("SetDirValue");
             Vector3 rotateDirectionValue = new Vector3(direction.x, 0, direction.y);
             _rotateDirection.Value = rotateDirectionValue;
         }
@@ -36,7 +35,6 @@ namespace CodeBase.Behaviours
         {
             Quaternion targetRotation = Quaternion.LookRotation(_rotateDirection.Value, Vector3.up);
             _rotateRoot.rotation = Quaternion.Lerp(_rotateRoot.rotation, targetRotation, _rotateSpeed.Value * deltaTime);
-            Debug.Log("Rotate");
         }
     }
 }

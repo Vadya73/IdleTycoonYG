@@ -10,6 +10,7 @@ namespace CodeBase.Installers
         private BaseEvent<Collider> OnTriggerEnterAction = new();
         private BaseEvent<Collider> OnTriggerStayAction = new();
         private BaseEvent<Collider> OnTriggerExitAction = new();
+        
         public override void Install(IEntity entity)
         {
             entity.AddOnTriggerEnterAction(OnTriggerEnterAction);
@@ -17,19 +18,10 @@ namespace CodeBase.Installers
             entity.AddOnTriggerExitAction(OnTriggerExitAction);
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            OnTriggerEnterAction.Invoke(other);
-        }
+        private void OnTriggerEnter(Collider other) => OnTriggerEnterAction.Invoke(other);
 
-        private void OnTriggerStay(Collider other)
-        {
-            OnTriggerStayAction.Invoke(other);
-        }
+        private void OnTriggerStay(Collider other) => OnTriggerStayAction.Invoke(other);
 
-        private void OnTriggerExit(Collider other)
-        {
-            OnTriggerExitAction.Invoke(other);
-        }
+        private void OnTriggerExit(Collider other) => OnTriggerExitAction.Invoke(other);
     }
 }

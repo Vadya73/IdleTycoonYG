@@ -20,6 +20,7 @@ MonoBehaviour:
   - Atomic.Elements
   - UnityEngine.InputSystem
   - CodeBase.Inventory
+  - CodeBase
   categories:
   - name: Movement
     indexes:
@@ -90,13 +91,32 @@ MonoBehaviour:
   - name: Wallet
     indexes:
     - id: 19
-      name: Worth
+      name: Coins
       type: ReactiveVariable<int>
     - id: 20
-      name: ReceiveItem
-      type: Item
+      name: Diamonds
+      type: ReactiveVariable<int>
+    - id: 22
+      name: Worth
+      type: ReactiveVariable<int>
+    - id: 23
+      name: WalletType
+      type: WalletType
   - name: Inventory
     indexes:
     - id: 21
       name: Items
       type: ReactiveList<Item>
+  - name: Other
+    indexes:
+    - id: 24
+      name: DestroyObject
+      type: GameObject
+  - name: Buildings
+    indexes:
+    - id: 25
+      name: BuildPrefab
+      type: GameObject
+    - id: 26
+      name: Cost
+      type: ReactiveVariable<int>

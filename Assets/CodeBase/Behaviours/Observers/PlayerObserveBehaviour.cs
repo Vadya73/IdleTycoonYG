@@ -2,7 +2,7 @@ using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
-namespace CodeBase.Behaviours
+namespace CodeBase.Behaviours.Observers
 {
     public sealed class PlayerObserveBehaviour : IEntityInit, IEntityDispose
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CodeBase.Installers
 {
-    public sealed class ColliderCollisionsHandleInstaller : SceneEntityInstallerBase
+    public sealed class ColliderCollisionsHandleInstaller : SceneEntityInstaller
     {
         private BaseEvent<Collision> OnCollisionEnterAction = new();
         private BaseEvent<Collision> OnCollisionStayAction = new();

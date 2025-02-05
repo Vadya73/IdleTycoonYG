@@ -8,14 +8,13 @@ namespace CodeBase.Behaviours
     // TODO:  Сделать SO с массивом инпут экшенов и прокидывать его, а не конфиг
     public sealed class InputReaderBehaviour : IEntityInit, IEntityUpdate
     {
-        [SerializeField] private InputActionAsset _inputConfig;
+        private InputActionAsset _inputConfig;
         
         private InputAction _moveInputAction;
         private BaseEvent<Vector2> OnMoveAction;
 
         void IEntityInit.Init(IEntity entity)
         {
-            
             _inputConfig = entity.GetInputConfig();
             OnMoveAction = entity.GetOnMoveAction();
             
