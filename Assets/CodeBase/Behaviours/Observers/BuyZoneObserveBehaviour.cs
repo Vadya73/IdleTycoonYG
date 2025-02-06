@@ -1,95 +1,79 @@
-using Atomic.Contexts;
 using Atomic.Elements;
 using Atomic.Entities;
-using CodeBase.Contexts;
 using CodeBase.Installers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Behaviours.Observers
 {
     public sealed class BuyZoneObserveBehaviour : IEntityInit, IEntityDispose
     {
-        private BaseEvent<Collider> _triggerEvent;
+        private BaseEvent<Collider> OnTriggerEnterEvent;
+        private BaseEvent<Collider> OnTriggerExitEvent;
+
+        private BaseEvent OnProgressStart;
+        private BaseEvent OnProgressCancel;
+        
         private PurchaseCheckBehaviour _purchaseChecker;
+        private WaitProgressBehaviour _waitProgressBehaviour;
+        private ShowUIProgressBehaviour _showUIProgressBehaviour;
+        
+        private bool _isPurchasing = false;
 
         void IEntityInit.Init(IEntity entity)
         {
-            _triggerEvent = entity.GetOnTriggerEnterAction();
+            OnTriggerEnterEvent = entity.GetOnTriggerEnterAction();
+            OnTriggerExitEvent = entity.GetOnTriggerExitAction();
+            
+            OnProgressStart = entity.GetOnProgressStart();
+            OnProgressCancel = entity.GetOnProgressCancel();
+                
             _purchaseChecker = entity.GetBehaviour<PurchaseCheckBehaviour>();
+            _waitProgressBehaviour = entity.GetBehaviour<WaitProgressBehaviour>();
+            _showUIProgressBehaviour = entity.GetBehaviour<ShowUIProgressBehaviour>();
 
-            _triggerEvent.Subscribe(TryPurchase);
+            OnTriggerEnterEvent.Subscribe(TryPurchase);
+            OnTriggerExitEvent.Subscribe(CancelPurchase);
+
+            OnProgressStart.Subscribe(StartUIProgress);
+            OnProgressCancel.Subscribe(StopUIProgress);
+        }
+
+        private void StartUIProgress()
+        {
+            _showUIProgressBehaviour.StartUIProgress();
+        }
+
+        private void StopUIProgress()
+        {
+            _showUIProgressBehaviour.StopUIProgress();
         }
 
         void IEntityDispose.Dispose(IEntity entity)
         {
-            _triggerEvent.Unsubscribe(TryPurchase);
+            OnTriggerEnterEvent.Unsubscribe(TryPurchase);
+            OnTriggerExitEvent.Unsubscribe(CancelPurchase);
         }
 
         private void TryPurchase(Collider triggerCollider)
         {
+            TryPurchaseAsync(triggerCollider).Forget();
+        }
+
+        private async UniTaskVoid TryPurchaseAsync(Collider triggerCollider)
+        {
+            _isPurchasing = true;
+            
             if (triggerCollider.TryGetComponent(out PlayerInstaller playerInstaller))
-                _purchaseChecker.Purchase();
-        }
-    }
+                await _purchaseChecker.Purchase();
 
-    public sealed class BuildBehaviour : IEntityInit
-    {
-        private GameObject _prefabBuilding;
-        private Transform _buildTransform;
-        
-        public void Init(IEntity entity)
-        {
-            
-        }
-    }
-
-    public sealed class PurchaseCheckBehaviour : IEntityInit
-    {
-        private WalletType _walletType;
-        private ReactiveVariable<int> _cost;
-        private BaseEvent OnPurchase;
-
-        private ReactiveVariable<int> _currentWalletCoins;
-        private ReactiveVariable<int> _currentWalletDiamonds;
-        
-        private IEntity _walletEntity;
-
-        void IEntityInit.Init(IEntity entity)
-        {
-            _walletType = entity.GetWalletType();
-            _cost = entity.GetCost();
-            
-            _walletEntity = AppContext.Instance.GetWallet().GetComponent<IEntity>();
-            
-            _currentWalletCoins = _walletEntity.GetCoins();
-            _currentWalletDiamonds = _walletEntity.GetDiamonds();
+            _isPurchasing = false;
         }
 
-        public void Purchase()
+        private void CancelPurchase(Collider triggerCollider)
         {
-            if (!CanPurchase()) 
-                return;
-            
-            if (_walletType == WalletType.Coin)
-            {
-                _currentWalletCoins.Value -= _cost.Value;
-                OnPurchase.Invoke();
-            }
-            else if (_walletType == WalletType.Diamond)
-            {
-                _currentWalletDiamonds.Value -= _cost.Value;
-                OnPurchase.Invoke();
-            }
-        }
-
-        private bool CanPurchase()
-        {
-            if (_walletType == WalletType.Coin && _currentWalletCoins.Value >= _cost.Value)
-                return true;
-            if (_walletType == WalletType.Diamond && _currentWalletDiamonds.Value >= _cost.Value)
-                return true;
-
-            return false;
+            if (triggerCollider.TryGetComponent(out PlayerInstaller playerInstaller) && _isPurchasing)
+                _waitProgressBehaviour.CancelWaitProgress();
         }
     }
 }

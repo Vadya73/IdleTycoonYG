@@ -9,6 +9,8 @@ using Atomic.Elements;
 using UnityEngine.InputSystem;
 using CodeBase.Inventory;
 using CodeBase;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Atomic.Entities
 {

@@ -116,4 +116,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef98761dda470fb51338bc4a726c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walletInstaller: {fileID: 8889138323070823430}
+  _wallet: {fileID: 0}

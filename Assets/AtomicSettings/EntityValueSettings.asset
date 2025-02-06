@@ -21,6 +21,8 @@ MonoBehaviour:
   - UnityEngine.InputSystem
   - CodeBase.Inventory
   - CodeBase
+  - UnityEngine.UI
+  - TMPro
   categories:
   - name: Movement
     indexes:
@@ -112,11 +114,34 @@ MonoBehaviour:
     - id: 24
       name: DestroyObject
       type: GameObject
+    - id: 25
+      name: SecondsForWaiting
+      type: ReactiveVariable<int>
+    - id: 31
+      name: OnProgressStart
+      type: BaseEvent
+    - id: 32
+      name: OnProgressCancel
+      type: BaseEvent
   - name: Buildings
     indexes:
-    - id: 25
-      name: BuildPrefab
-      type: GameObject
     - id: 26
       name: Cost
       type: ReactiveVariable<int>
+    - id: 27
+      name: BuildingPrefab
+      type: GameObject
+    - id: 28
+      name: BuildingTransform
+      type: Transform
+    - id: 29
+      name: OnPurchaseEvent
+      type: BaseEvent
+  - name: UI
+    indexes:
+    - id: 30
+      name: ProgressBarImage
+      type: Image
+    - id: 33
+      name: ProgressText
+      type: TMP_Text

@@ -16,11 +16,11 @@ MonoBehaviour:
   categories:
   - Name: App
     Namespace: Atomic.Contexts
-    DirectoryPath: Assets/Codegen
+    DirectoryPath: Assets/CodeBase/AtomicCodegen/Contexts
     ClassSuffix: API
     Imports:
     - CodeBase
     items:
     - id: 1
       name: Wallet
-      type: WalletInstaller
+      type: Wallet
