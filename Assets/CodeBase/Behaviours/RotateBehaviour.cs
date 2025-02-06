@@ -30,6 +30,12 @@ namespace CodeBase.Behaviours
             Vector3 rotateDirectionValue = new Vector3(direction.x, 0, direction.y);
             _rotateDirection.Value = rotateDirectionValue;
         }
+        
+        public void SetDirectionValue(Vector3 direction)
+        {
+            direction.y = 0;
+            _rotateDirection.Value = direction;
+        }
 
         private void Rotate(float deltaTime)
         {

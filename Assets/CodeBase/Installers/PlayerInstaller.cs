@@ -17,9 +17,13 @@ namespace CodeBase.Installers
         // Rotate
         [SerializeField] private Transform _rotateRoot;
         [SerializeField] private ReactiveVariable<float> _rotateSpeed;
+
+        private IEntity _currentEntity;
+        public IEntity CurrentEntity => _currentEntity;
         
         public override void Install(IEntity entity)
         {
+            _currentEntity = entity;
             // Input
             entity.AddInputConfig(_inputConfig);
             // Move

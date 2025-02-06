@@ -145,3 +145,11 @@ MonoBehaviour:
     - id: 33
       name: ProgressText
       type: TMP_Text
+  - name: States
+    indexes:
+    - id: 34
+      name: CanMine
+      type: ReactiveVariable<bool>
+    - id: 35
+      name: IsMoving
+      type: ReactiveVariable<bool>
